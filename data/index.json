@@ -1,0 +1,51 @@
+{
+  "generated": "2026-06-17T21:26:37.323445",
+  "generator": "CarnetDeChant v0.1.0",
+  "carnets": [
+    {
+      "id": "nouveau1",
+      "name": "nouveau1",
+      "description": "Pour test",
+      "author": "B Gosset",
+      "created": "2026-06-17",
+      "modified": "2026-06-17",
+      "chants": [
+        "A_la_Huelga.md",
+        "Antisocial.md",
+        "Cant_de_lluita_en_yaourt.md"
+      ]
+    },
+    {
+      "id": "fêtes_de_la_musique_2026",
+      "name": "Fêtes de la musique 2026",
+      "description": "Fêtes de la musique 2026",
+      "author": "BGT",
+      "created": "2026-06-17",
+      "modified": "2026-06-17",
+      "chants": [
+        "A_la_Huelga.md",
+        "Clémence_en_vacances.md",
+        "En_el_pozo_Maria_Luisa.md",
+        "Frangines.md",
+        "Hegoak.md",
+        "Loiseau_liberté.md",
+        "labutterouge.md",
+        "Le_chant_des_partisans.md",
+        "Le_déserteur.md",
+        "le_pieux.md"
+      ]
+    },
+    {
+      "id": "car2",
+      "name": "car2",
+      "description": "car2",
+      "author": "BGT",
+      "created": "2026-06-17",
+      "modified": "2026-06-17",
+      "chants": [
+        "Cant_de_lluita_en_yaourt.md",
+        "A_la_Huelga.md"
+      ]
+    }
+  ]
+}

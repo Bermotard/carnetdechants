@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carnet de Chants</title>
+<style>
+:root {
+    --bg: #faf8f5;
+    --sidebar-bg: #2c2416;
+    --sidebar-text: #e8dcc8;
+    --main-bg: #fffefb;
+    --text: #3d3226;
+    --title: #5c3d1a;
+    --accent: #8b6914;
+    --border: #e0d5c0;
+    --hover: #f5efe0;
+    --active: #f0e6d0;
+    --chant-title: #6b4226;
+    --refrain-bg: #faf6ee;
+    --card-bg: #fffefb;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    line-height: 1.7;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+    width: 300px;
+    min-width: 300px;
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.15);
+    z-index: 10;
+}
+
+.sidebar-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-header h1 {
+    font-size: 1.4em;
+    font-weight: normal;
+    letter-spacing: 1px;
+    color: #f0e6c8;
+    text-align: center;
+}
+
+.sidebar-header .subtitle {
+    font-size: 0.75em;
+    color: #a09070;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 0;
+}
+
+.carnet-group {
+    margin-bottom: 4px;
+}
+
+.carnet-title {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--sidebar-text);
+    font-family: inherit;
+    font-size: 1em;
+    text-align: left;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.carnet-title:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.carnet-title.active {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+}
+
+.carnet-title .count {
+    font-size: 0.75em;
+    color: #a09070;
+    float: right;
+}
+
+.chant-list {
+    display: none;
+    list-style: none;
+    background: rgba(0,0,0,0.15);
+}
+
+.chant-list.open {
+    display: block;
+}
+
+.chant-list li {
+    padding: 0;
+}
+
+.chant-list a {
+    display: block;
+    padding: 6px 20px 6px 36px;
+    color: #c8b898;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.chant-list a:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+    border-left-color: var(--accent);
+}
+
+.chant-list a.active-chant {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    border-left-color: #d4a843;
+}
+
+.sidebar-footer {
+    padding: 12px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.7em;
+    color: #6a6050;
+    text-align: center;
+}
+
+/* === MAIN === */
+.main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px 48px;
+}
+
+.welcome {
+    max-width: 680px;
+    margin: 80px auto 0;
+    text-align: center;
+}
+
+.welcome h2 {
+    font-size: 2em;
+    font-weight: normal;
+    color: var(--title);
+    margin-bottom: 16px;
+}
+
+.welcome p {
+    color: #8a7a60;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+.chant-display {
+    max-width: 720px;
+    margin: 0 auto;
+    display: none;
+}
+
+.chant-display.visible {
+    display: block;
+}
+
+.chant-display h2 {
+    font-size: 1.6em;
+    color: var(--chant-title);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    font-weight: normal;
+    text-align: center;
+}
+
+.chant-content {
+    font-size: 1.05em;
+    line-height: 2;
+}
+
+.chant-content h1, .chant-content h2, .chant-content h3 {
+    color: var(--chant-title);
+    margin: 1.5em 0 0.6em;
+    font-weight: normal;
+}
+
+.chant-content h1 { font-size: 1.5em; text-align: center; }
+.chant-content h2 { font-size: 1.3em; }
+.chant-content h3 { font-size: 1.15em; }
+
+.chant-content p {
+    margin: 0.5em 0;
+}
+
+.chant-content em {
+    color: #7a5a30;
+}
+
+.chant-content strong {
+    color: #4a3020;
+}
+
+.chant-content ul, .chant-content ol {
+    margin: 0.5em 0;
+    padding-left: 2em;
+}
+
+.chant-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.95em;
+}
+
+.chant-content th {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: normal;
+}
+
+.chant-content td {
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.chant-content tr:nth-child(even) td {
+    background: var(--refrain-bg);
+}
+
+.chant-content hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5em 0;
+}
+
+.chant-content blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    color: #6a5a40;
+    font-style: italic;
+}
+
+/* === EMPTY STATE === */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #b0a080;
+}
+
+.empty-state .icon {
+    font-size: 3em;
+    margin-bottom: 16px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    body { flex-direction: column; }
+    .sidebar {
+        width: 100%;
+        min-width: 100%;
+        max-height: 40vh;
+    }
+    .main { padding: 24px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h1>🎵 Carnet de Chants</h1>
+        <div class="subtitle">3 carnet(s)</div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="carnet-group">
+            <button class="carnet-title" data-carnet-id="nouveau1">
+                📖 nouveau1
+                <span class="count">3</span>
+            </button>
+            <ul class="chant-list" id="chant-list-nouveau1">
+                <li><a href="#nouveau1/A_la_Huelga.md"
+                       class="chant-link"
+                       data-carnet-id="nouveau1"
+                       data-chant-file="A_la_Huelga.md">♪ A la Huelga</a></li>
+                <li><a href="#nouveau1/Antisocial.md"
+                       class="chant-link"
+                       data-carnet-id="nouveau1"
+                       data-chant-file="Antisocial.md">♪ Antisocial</a></li>
+                <li><a href="#nouveau1/Cant_de_lluita_en_yaourt.md"
+                       class="chant-link"
+                       data-carnet-id="nouveau1"
+                       data-chant-file="Cant_de_lluita_en_yaourt.md">♪ Cant de lluita en yaourt</a></li>
+            </ul>
+        </div>
+        <div class="carnet-group">
+            <button class="carnet-title" data-carnet-id="fêtes_de_la_musique_2026">
+                📖 Fêtes de la musique 2026
+                <span class="count">10</span>
+            </button>
+            <ul class="chant-list" id="chant-list-fêtes_de_la_musique_2026">
+                <li><a href="#fêtes_de_la_musique_2026/A_la_Huelga.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="A_la_Huelga.md">♪ A la Huelga</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/Clémence_en_vacances.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="Clémence_en_vacances.md">♪ Clémence en vacances</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/En_el_pozo_Maria_Luisa.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="En_el_pozo_Maria_Luisa.md">♪ En el pozo Maria Luisa</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/Frangines.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="Frangines.md">♪ Frangines</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/Hegoak.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="Hegoak.md">♪ Hegoak</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/Loiseau_liberté.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="Loiseau_liberté.md">♪ Loiseau liberté</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/labutterouge.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="labutterouge.md">♪ labutterouge</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/Le_chant_des_partisans.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="Le_chant_des_partisans.md">♪ Le chant des partisans</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/Le_déserteur.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="Le_déserteur.md">♪ Le déserteur</a></li>
+                <li><a href="#fêtes_de_la_musique_2026/le_pieux.md"
+                       class="chant-link"
+                       data-carnet-id="fêtes_de_la_musique_2026"
+                       data-chant-file="le_pieux.md">♪ le pieux</a></li>
+            </ul>
+        </div>
+        <div class="carnet-group">
+            <button class="carnet-title" data-carnet-id="car2">
+                📖 car2
+                <span class="count">2</span>
+            </button>
+            <ul class="chant-list" id="chant-list-car2">
+                <li><a href="#car2/Cant_de_lluita_en_yaourt.md"
+                       class="chant-link"
+                       data-carnet-id="car2"
+                       data-chant-file="Cant_de_lluita_en_yaourt.md">♪ Cant de lluita en yaourt</a></li>
+                <li><a href="#car2/A_la_Huelga.md"
+                       class="chant-link"
+                       data-carnet-id="car2"
+                       data-chant-file="A_la_Huelga.md">♪ A la Huelga</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="sidebar-footer">
+        Généré le 17/06/2026 à 21:26<br>
+        CarnetDeChant
+    </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="main-content">
+    <div class="welcome" id="welcome">
+        <h2>🎶 Carnet de Chants</h2>
+        <p>Sélectionnez un carnet dans le menu,<br>puis cliquez sur un chant pour l'afficher.</p>
+    </div>
+    <div class="chant-display" id="chant-display">
+        <h2 id="chant-title"></h2>
+        <div class="chant-content" id="chant-content"></div>
+    </div>
+</main>
+
+<script>
+// Données des carnets
+const CARNETS = [{"id": "nouveau1", "name": "nouveau1", "description": "Pour test", "author": "B Gosset", "created": "2026-06-17", "modified": "2026-06-17", "chants": ["A_la_Huelga.md", "Antisocial.md", "Cant_de_lluita_en_yaourt.md"]}, {"id": "fêtes_de_la_musique_2026", "name": "Fêtes de la musique 2026", "description": "Fêtes de la musique 2026", "author": "BGT", "created": "2026-06-17", "modified": "2026-06-17", "chants": ["A_la_Huelga.md", "Clémence_en_vacances.md", "En_el_pozo_Maria_Luisa.md", "Frangines.md", "Hegoak.md", "Loiseau_liberté.md", "labutterouge.md", "Le_chant_des_partisans.md", "Le_déserteur.md", "le_pieux.md"]}, {"id": "car2", "name": "car2", "description": "car2", "author": "BGT", "created": "2026-06-17", "modified": "2026-06-17", "chants": ["Cant_de_lluita_en_yaourt.md", "A_la_Huelga.md"]}];
+
+// Contenu des chants intégré (pas de fetch → compatible file://)
+const CHANTS = {"le_pieux.md": "Le Pieu\n\nDu temps où je n’étais qu’un gosse\nMon grand-père me disait souvent,\nAssis à l’ombre de son porche\nEn regardant passer le vent :\nPetit, vois-tu ce pieu de bois\nAuquel nous sommes tous enchaînés\nTant qu’il sera planté comme ça\nNous n’aurons pas la liberté.\n**Mais si nous tirons tous, il tombera**\n**Ça ne peut pas durer comme ça**\n**Il faut qu’il tombe, tombe, tombe**\n**Vois-tu, comme il penche déjà**\n**Si je tire fort, il doit bouger**\n**Et si tu tires à mes côtés**\n**C’est sûr qu’il tombe, tombe, tombe**\n**Et nous aurons la liberté.**\nPetit, ça fait déjà longtemps\nQue je m’y écorche les mains\nEt je me dis de temps en temps\nQue je me suis battu pour rien\nIl est toujours si grand, si lourd,\nLa force vient à me manquer\nJe me demande si un jour\nNous aurons bien la liberté.\n**Mais si nous tirons tous, il tombera**\n**Ça ne peut pas durer comme ça**\n**Il faut qu’il tombe, tombe, tombe**\n**Vois-tu, comme il penche déjà**\n**Si je tire fort, il doit bouger**\n**Et si tu tires à mes côtés**\n**C’est sûr qu’il tombe, tombe, tombe**\n**Et nous aurons la liberté.**\nPuis mon grand-père s’en est allé\nUn vent mauvais l’a emporté\nEt je reste seul sous le porche\nA regarder jouer d’autres gosses\nDansant autour du vieux pieu noir\nOù tant de mains se sont usées\nJe chante des chansons d’espoir\nQui parlent de la liberté.\n**ET ****si nous tirons tous, il tombera**\n**Ça ne peut pas durer comme ça**\n**Il faut qu’il tombe, tombe, tombe**\n**Vois-tu, comme il penche déjà**\n**Si je tire fort, il doit bouger**\n**Et si tu tires à mes côtés**\n**C’est sûr qu’il tombe, tombe, tombe**\n**Et nous aurons la liberté.**\n", "Frangines.md": "**Frangines**\nChanson d'Anne Sylvestre\n\nCe fut à l'école déjà\nQu'on fit de nous des concurrentes\nOn se regardait chien et chat\nOn détestait les redoublantes\nSouffre-douleur ou bien fayotes\nOn se poussait toujours plus haut\nOn s'arrachait les bonnes notes\nOn pleurait devant le tableau\nOn aurait pu rester frangines\nÇa nous aurait gagné du temps\nAu coude à coude j'imagine\nQu'il n'aurait pas fallu longtemps\nPour qu'on soit toutes aussi bonnes\nMalgré les pionnes\nEt les parents\nEnsuite en face des garçons\nCommença la grande offensive\nOn se fabriquait des façons\nDes rendez-vous sur l'autre rive\nEt grande bringue ou Blanche-Neige\nC'était à qui amènerait\nTous les boutonneux du collège\nÀ l'accompagner sur le quai\nOn aurait pu rester frangines\nÇa nous aurait gagné du temps\nBras dessus-dessous j'imagine\nQu'on aurait de ces débutants\nAvant que la vie les assomme\nPu faire des hommes\nPas des enfants\nUn peu plus tard c'est la beauté\nQu'on nous érigea en barrière\nOn se retrouvait insultée\nSi on n'était pas la première\nNos amitiés faisaient sourire\nFallait nous crêper le chignon\nEt tout ce qu'on pouvait se dire\nN'était que fadaises ou chiffons\nOn aurait pu rester frangines\nÇa nous aurait gagné du temps\nMain sur l'épaule j'imagine\nQu'on aurait pu se regardant\nVoir qu'on était toutes assez belles\nEt même celles\nQui ont pas le temps\nC'est tout pareil dans nos métiers\nOn nous oppose et on nous monte\nEn épingle pour mieux montrer\nQu'on se trouve en dehors du compte\nPour peu qu'on dépasse la tête\nOn est toujours une exception\nChacune sur notre planète\nCe qu'on a pu tourner en rond\nSi on se retrouvait frangines\nOn n'aurait pas perdu son temps\nUnissant nos voix j'imagine\nQu'on en dirait vingt fois autant\nEt qu'on ferait changer les choses\nEt je suppose aussi les gens\nEt qu'on ferait changer les choses\nAllez on ose\nIl est grand temps\n", "Antisocial.md": "**« Antisocial »** Trust\nTu bosses toute ta vie pour payer ta pierre tombale\nTu masques ton visage en lisant ton journal\nTu marches tel un robot dans les couloirs du métro\nLes gens ne te touchent pas, il faut faire le premier pas\nTu voudrais dialoguer sans renvoyer la balle\nImpossible d’avancer sans ton gilet pare-balle.\nTu voudrais donner des yeux à la justice\nImpossible de violer cette femme pleine de vices.\n\nAntisocial, tu perds ton sang-froid.\nRepense à toutes ces années de service.\nAntisocial, bientôt les années de sévices\nEnfin le temps perdu qu’on ne rattrape plus.\n\nEcraser les gens est devenu ton passe-temps.\nEn les éclaboussant, tu deviens gênant.\nDans ton désespoir, il reste un peu d’espoir\nCelui de voir les gens sans fard et moins bâtards.\nMais cesse de faire le point, serre plutôt les poings\nBouge de ta retraite, ta conduite est trop parfaite\nRelève la gueule, je suis là, t’es pas seul\nCeux qui t’enviaient, aujourd’hui te jugeraient.\n\nTu bosses toute ta vie pour payer ta pierre tombale\nTu masques ton visage en lisant ton journal\nTu marches tel un robot dans les couloirs du métro\nLes gens ne te touchent pas, il faut faire le premier pas\nTu voudrais dialoguer sans renvoyer la balle\nImpossible d’avancer sans ton gilet pare-balle.\nTu voudrais donner des yeux à la justice\nImpossible de violer cette femme pleine de vices.\nAntisocial, antisocial, antisocial, antisocial", "Le_chant_des_partisans.md": "**Le Chant des partisans**\nChanson de Yves Montand\n\nAmi, entends-tu le vol noir des corbeaux sur nos plaines\nAmi, entends-tu ces cris sourds du pays qu'on enchaîne\nOhé, partisans, ouvriers et paysans, c'est l'alarme\nCe soir l'ennemi connaîtra le prix du sang et des larmes\n\nMontez de la mine, descendez des collines, camarades\nSortez de la paille les fusils, la mitraille, les grenades\nOhé, les tueurs à la balle et au couteau, tuez vite\nOhé, saboteur, attention à ton fardeau, dynamite\n\nC'est nous qui brisons les barreaux des prisons pour nos frères\nLa haine à nos trousses et la faim qui nous pousse, la misère\nIl y a des pays où les gens au creux des lits font des rêves\nIci, nous, vois-tu, nous on marche et nous on tue, nous on crève\n\nIci chacun sait ce qu'il veut, ce qu'il fait quand il passe\nAmi, si tu tombes un ami sort de l'ombre à ta place\nDemain du sang noir sèchera au grand soleil sur les routes\nChantez, compagnons, dans la nuit la Liberté nous écoute\n\nAmi, entends-tu les cris sourds du pays qu'on enchaîne\nAmi, entends-tu le vol noir des corbeaux sur nos plaines\n", "Le_déserteur.md": "Le Déserteur\nChanson de Boris Vian\n\nMonsieur le Président\nJe vous fais une lettre\nQue vous lirez peut-être\nSi vous avez le temps\nJe viens de recevoir\nMes papiers militaires\nPour partir à la guerre\nAvant mercredi soir\nMonsieur le Président\nJe ne veux pas la faire\nJe ne suis pas sur terre\nPour tuer des pauvres gens\nC'est pas pour vous fâcher\nIl faut que je vous dise\nMa décision est prise\nJe m'en vais déserter\nDepuis que je suis né\nJ'ai vu mourir mon père\nJ'ai vu partir mes frères\nEt pleurer mes enfants\nMa mère a tant souffert\nQu'elle est dedans sa tombe\nEt se moque des bombes\nEt se moque des vers\nQuand j'étais prisonnier\nOn m'a volé ma femme\nOn m'a volé mon âme\nEt tout mon cher passé\nDemain de bon matin\nJe fermerai ma porte\nAu nez des années mortes\nJ'irai sur les chemins\nJe mendierai ma vie\nSur les routes de France\nDe Bretagne en Provence\nEt je dirai aux gens\nRefusez d'obéir\nRefusez de la faire\nN'allez pas à la guerre\nRefusez de partir\nS'il faut donner son sang\nAllez donner le vôtre\nVous êtes bon apôtre\nMonsieur le Président\nSi vous me poursuivez\nPrévenez vos gendarmes\nQue je n'aurai pas d'armes\nEt qu'ils pourront tirer\n", "Hegoak.md": "**Hegoak****   ****Les ailes**\nCe chant basque très connu et souvent interprété a été composé en 1968 par Mikel Laboa sur la based'un poème de Joxean Artze. A l'origine, ce poème était un acte de résistance contre l'interdiction faite par le régime franquiste d'utiliser la langue basque.\nL'oiseau est pris comme symbole de la liberté et les paroles évoquent le dilemme qui existe lorsqu'il y a\nune personne proche que l'on souhaite posséder: Ou vous l'attachez et la possédez comme un oiseau en\ncage, ou vous l'aimez telle qu'elle est, et alors, si elle souhaite partir, vous devez la laisser partir.\nLe contexte politique de l'époque en a involontairement fait une sorte de \"protest song\".\nCe chant a d'ailleurs été interprété par Joan Baez dans ce sens.\nDepuis, il est plutôt considéré comme un chant traditionnel.\n\nParoles et traduction\n\n**Hegoak**** ****ebaki**** ****banizkio**\nSi je lui avais coupé les ailes\n**Neuria**** ****izango**** zen**\nIl aurait été à moi\n**Ez**** ****zuen**** ****aldegingo**\nIl ne serait pas parti\n**Hegoak**** ****ebaki**** ****banizkio**\nSi je lui avais coupé les ailes\n**Neuria**** ****izango**** zen**\nIl aurait été à moi\n**Ez**** ****zuen**** ****aldegingo**\nIl ne serait pas parti\n**Bainan**** ****horrela**\nOui mais voilà\n**Ez**** zen ****gehiago**** ****txoria**** ****izango**\nIl n'aurait plus été un oiseau\n**Bainan**** ****horrela**\nOui mais voilà\n**Ez**** zen ****gehiago**** ****txoria**** ****izango**\nIl n'aurait plus été un oiseau\n**Eta ****nik**** ****txoria**** ****nuen**** ****maïte**\nOui mais moi, c'était l'oiseau que j'aimais\n**Eta ****nik**** Eta ****nik**\nOui mais moi, oui mais moi\n**Txoria**** ****nuen**** ****maïte**\nC'était l'oiseau que j'aimais", "A_la_Huelga.md": "**A la ****Huelga**** **\nChicho Sánchez Ferlosio, avril 1962\n\n« En grève » ! Chicho Sánchez, opposé au régime de Franco reprend cette vieille chanson qui appelle à la grève générale, notamment lors du soulèvement dans les Asturies en avril 1962, Des militants la chantaient déjà lors des grèves à Barcelone au début du XXe siècle. Elle faisait partie d’un disque sorti clandestinement. \n\nVoix 1 : La,  Voix 2 : Mi – “pozo” [posso] \n\nA la huelga compañero,\n No vayas a trabajar \nDeja quieta la herramienta,\n Qué es la hora de luchar \n\n**REFRAIN** : (doux et lent puis qui prend de l’ampleur à “madre”) \n**A la ****huelga**** ****diez****, A la ****huelga**** ****cien**** **\n**A la ****huelga**** ****madre****, ****Yo**** ****voy****  ****también**** **\n**A la ****huelga**** ****cien****, A la ****huelga**** mil **\n**Yo**** ****por**** ****ellos**** ****madre****, Y ****ellos**** ****por**** mi**\n\nContra el gobierno del hambre, \nNos vamos a levantar \nTodos los trabajadores, \nCodo a codo por el pan. \n\nREFRAIN \n\nDesde el pozo y el arado,\n Desde el torno y el telar \nIran los hombres del pueblo, \nA la huelga general \n\nREFRAIN \nTodos los pueblos del mundo, \nLa mano nos van a dar \nPara devolver a España \nSu perdida libertad \n\nREFRAIN [ “Yo por ELLAS madre Y ELLAS por mi” ]", "Cant_de_lluita_en_yaourt.md": "Cant de lluita  Roba Estesa\n\nSem en acte de protesta\n**Som an acta da proutesta**\nsem mans fredes vora el foc\n**Som mans fredas vora fo**\n sem la veu de la revolta\n**Som la veou da la ravolta**\n netes de la por i el dol\n**Netas da la por iel do**\n\n Disfressades d'utopia\n**Disfressa das dou topia**\n emprendrem lluny del dolor\n**Emprendem lunel dolor**\n la recerca de la vida\n**La racherca da la vida**\n a cavall' de la raó\n**A caval da la ra o**\n\n Coincideixen les mirades\n**coïncideïch en las miradas**\n fixades en l'horitzó\n**Fixadas en l’ouritzo**\n potser avui farem victòria\n**Poutsa vui farem victoria**\n potser enterrarem el plor\n**poutsa am tarem el plo**\n\n Doncs ens man tindrem alçades\n**Dons ens man ****tindrem alçadas**\n ja no ens veuran de genolls\n**ya nens va voran da genouls**\n el Sol mantindrà la flama\n**El sol man tindra la flama**\n la Lluna encendrà passió\n**La luna cendra passo**\n\n Sem en acte de protesta\n**som an acta da proutesta**\n sem mans fredes vora el foc\n**Som mans fredas vora fo**\n sem la veu de la revolta\n**Som la veou da la ravolta**\n netes de la por i el dol\n**netes da la por el dol** (x4)\n\n+  scandé sem an acta da, an acta da protesta\n                mans fredes vora el foc\n               la veu de la revolta\n               el dol °", "labutterouge.md": "### Paroles\nSur cette butte là y'avait pas d'gigolettes\nPas de marlous ni de beaux muscadins.\nAh c'était loin du Moulin d'la Galette,\nEt de Paname qu'est le roi des patelins.\nC'qu'elle en a bu du bon sang cette terre,\nSang d'ouvriers et sang de paysans,\nCar les bandits qui sont cause des guerres\nN'en meurent jamais, on n'tue qu'les innocents !\nLa butte rouge, c'est son nom, l'baptême s'fit un matin\nOù tous ceux qui grimpaient roulaient dans le ravin.\nAujourd'hui y'a des vignes, il y pousse du raisin,\nQui boira d'ce vin là, boira l'sang des copains.\nSur cette butte là on n'y f'sait pas la noce\nComme à Montmartre où l'champagne coule à flots,\nMais les pauvr's gars qu'avaient laissé des gosses\nY f'saient entendre de terribles sanglots ...\nC'qu'elle en a bu des larmes cette terre,\nLarmes d'ouvriers et larmes de paysans\nCar les bandits qui sont cause des guerres\nNe pleurent jamais, car ce sont des tyrans !\nLa butte rouge, c'est son nom, l'baptême s'fit un matin\nOù tous ceux qui grimpaient roulaient dans le ravin.\nAujourd'hui y'a des vignes, il y pousse du raisin,\nQui boit de ce vin là, boit les larmes des copains.\nSur cette butte là, on y r'fait des vendanges,\nOn y entend des cris et des chansons :\nFilles et gars doucement qui échangent\nDes mots d'amour qui donnent le frisson.\nPeuvent-ils songer, dans leurs folles étreintes,\nQu'à cet endroit où s'échangent leurs baisers,\nJ'ai entendu la nuit monter des plaintes\nEt j'y ai vu des gars au crâne brisé !\nLa butte rouge, c'est son nom, l'baptême s'fit un matin\nOù tous ceux qui grimpaient roulaient dans le ravin.\nAujourd'hui y'a des vignes, il y pousse du raisin.\nMais moi j'y vois des croix portant l'nom des copains ...\n", "Loiseau_liberté.md": "**L’Oiseau Liberté**\nChanson de Damien Saez\n\nCe n'est pas un adieu c'est juste un au revoir\nNos Internationales battront toujours l'espoir\nEt si nos frères tombent nous chanterons leur mémoire\nEt si c'est sous les bombes que s'écrit notre histoire\nNous resserrerons nos rangs nous planterons nos croix\nNous combattrons les vents de qui nous combattra\nComme un oiseau blessé dans la nuit volera\nMon oiseau liberté qui repart au combat\nS'il faut mourir d'amour mourir de liberté\nPartir comme un oiseau qui s'en est envolé\nAlors oui que je meure comme un drapeau dressé\nUne rose tendue face aux fusils pointés\nUne rose en martyr pour nos humanités\nJuste un bouquet d'amour pour nos amis tombés\nQui n'ont oui que leur fleur à offrir au bûcher\nQu'une fleur à leur tendre à ces fusils pointés\nQue se lèvent tous ceux qui ont le même dieu sur Terre\nPuisque le dieu des dieux oui c'est d'aimer son frère\nQuelle que soit la douleur des blessures de nos âmes\nDe mon pays qui pleure quand on touche à la flamme\nQuels que soient les cimetières enfants de notre patrie\nLa force des lumières tire plus loin qu'un fusil\nMon pays des Lumières il est l'heure de s'unir\nTon drapeau triste France il est l'heure de brandir\nQue flotte pour toujours de ce vendredi noir\nMon pays liberté le drapeau de l'espoir\nUn jour l'oiseau m'a dit comme un souffle printemps\nQu'un jour prochain oui sur la terre de nos enfants\nIl n'y aura plus la guerre il n'y aura plus le sang\nY'aura plus ces misères qui nous cernent à tous vents\nMon oiseau liberté ne craint pas les fusils\nIl ne craint pas les balles de toutes tyrannies\nEt même s'il s'envole tué par l'infamie\nRenaîtra de ses cendres mon oiseau infini\nIl repart au combat sous le ciel de novembre\nLa lumière renaîtra pour de meilleurs septembres\nIl repart au combat face à l'ombre des nids\nIl repart au combat contre la triste vie\nIl vole sur les plaines il s'en va triste plume\nSous le chant de nos peines sous le chant de la lune\nAu vent soufflant les terres qu'on martèle à l'enclume\nNous chantons nos prières pour que la nuit s'allume\nChante avec moi frangin pour notre mère la Terre\nQu'ici-bas il n'est rien qui ne fasse lumière\nNous sommes tous en chemin vers l'obscur ou le clair\nEt perdus dans l'écrin de notre mère la Terre\nEnvolés sur le dos de l'oiseau liberté\nEmportés par les crocs de la haine incarnée\nSi nous sommes cernés par tous les terrorismes\nCeux du son de la haine ou ceux de nos fascismes\nS'il faut plus qu'une armée pour protéger nos livres\nOn ne combat jamais mieux qu'en ouvrant des livres\nPour ceux-là fusillés qui pour l'éternité\nResteront le symbole de notre liberté\nNous chantons nos prières nous chantons pour la Terre\nNous chantons la lumière contre l'obscurité\nTous les peuples du monde pour lever liberté\nQuelles que soient les prières pour ne pas oublier\nMains tendues à leurs frères contre fusils pointés\nQue nous sommes sur la Terre tous frères d'humanité\nNous sommes fils des Ardennes nous sommes fils de Provence\nPuis jusqu'aux Aquitaines nous sommes la France\nNous sommes pays du libre pays de tolérance\nFace à l'assassin nous offrons l'innocence\nDe l'oiseau liberté face aux horreurs mitrailles\nNous ne quitterons jamais oui le champ de bataille\nNous n'avons qu'un seul dieu c'est la vie sur Terre\nNous n'avons qu'un seul dieu c'est d'aimer son frère\nMon oiseau liberté ne craint pas les fusils\nIl ne craint pas les balles de toutes tyrannies\nEt même s'il s'envole tué par l'infamie\nRenaîtra de ses cendres mon oiseau l'infini\nEt même s'il s'envole tué par l'infamie\nRenaîtra de ses cendres mon oiseau l'infini\n", "En_el_pozo_Maria_Luisa.md": "**En el pozo Maria Luisa**\n*Paroles : anonyme (1934). A la mine de Langreo (Asturies), exploitée depuis le XVIIIe siècle, un accident dans le puits (el **pozo**) Maria Luisa tue quatre mineurs. Le survivant prend à témoin **Maruxiña**, poupée des Asturies à l’effigie de Sainte Barbe, patronne des mineurs. La chanson évoque les grèves et révoltes des mineurs asturiens en 1934 : quinze à trente mille ouvriers armés prennent le contrôle d’une grande partie de la région, y instaurent une commune, et y créent des comités révolutionnaires. L’envoi des troupes et le bombardement des zones minières mettront fin à la révolte, faisant plus de mille morts en deux semaines…*\n\nEn el pozo Maria Luisa, la la la la la la la la  (x2)\nMurieron cuatro mineros, mira\nMira Maruxiña mira, mira como vengo yo\nMurieron cuatro mineros, mira\nMira Maruxiña mira, mira como vengo yo\nTraigo la camisa roja, la la la la la la la la  (x2)\nDe sangre de un compañero, mira\nMira Maruxiña mira, mira como vengo yo\nDe sangre de un compañero, mira\nMira Maruxiña mira, mira como vengo yo\nTengo la cabeza rota, la la la la la la la la  (x2)\nQue me la rompio un barreno, mira\nMira Maruxiña mira, mira como vengo yo\nQue me la rompio un barreno, mira\nMira Maruxiña mira, mira como vengo yo\nMe cago en los capataces, la la la la la la la la  (x2)\nAcionistas y esquiroles mira\nMira Maruxiña mira, mira como vengo yo\nAcionistas y esquiroles mira\nMira Maruxiña mira, mira como vengo yo\nMañana son los entierros, la la la la la la la la  (x2)\nDe los cuatro pobres mineros, mira\nMira Maruxiña mira, mira como vengo yo\nDe los cuatro pobres mineros, mira\nMira Maruxiña mira, mira como vengo yo\nEn el pozo Maria Luisa, la la la la la la la la  (x2)\nMurieron cuatro mineros mira,\nMira Maruxiña mira, mira como vengo yo\nMurieron cuatro mineros mira,\nMira Maruxiña mira, mira como vengo yo\n", "Clémence_en_vacances.md": "\n**Clémence en Vacances **\nAnne Sylvestre, 1978 \n\nVoir notre version « Clémence en Manif » p. 368 \nUne chanson sur les femmes (âgées, mais pas que) qui \ndécident d’arrêter de faire les tâches ménagères qu’elles se \nsont coltinées toute leur vie sans aucune reconnaissance. \nPas séniles, mais rebelles, à l’oisiveté subversive ! \n\nOn l’a dit à la grand-mère, \nQui l’a dit à son voisin \nLe voisin à la bouchère, \nLa bouchère à son gamin \nSon gamin qui tête folle, \nN’a rien eu de plus urgent \nQue de le dire à l’école, \nÀ son voisin Pierre-Jean\n\n**REFRAIN : Clémence ****Clémence****, a pris des vacances **\n**                   ****Clémence ne fait plus rien **\n**                   ****Clémence ****Clémence****, est comme en enfance **\n**                   ****Clémence va bien **\n\nÇa sembla d’abord étrange, \nOn s’interrogea un peu \nSur ce qui parfois dérange, \nLa raison de certains vieux \nSi quelque mauvaise chute, \nAvait pu l’handicaper \nOu encore une dispute, \nAvec ce brave Honoré \n\n**REFRAIN **\n\nPuis on apprit par son gendre, \nQu’il ne s’était rien passé \nMais simplement qu’à l’entendre \nElle en avait fait assez \nBien qu’ayant toutes ses jambes, \nElle reste en son fauteuil \nUn peu de malice flambe, Parfois au bord de son œil\n\n**REFRAIN **\n\n\nHonoré c’est bien dommage, \nDoit tout faire à la maison \nLa cuisine et le ménage \nLe linge et les commissions \nQuand il essaie de lui dire \nDe coudre un bouton perdu \nElle répond dans un sourire \nVa j’ai bien assez cousu \n\n**REFRAIN **\n\nC’est la maîtresse d’école  \nQui l’a dit au pharmacien \nClémence est devenue folle \nParaît qu’elle ne fait plus rien \nMais selon l’apothicaire,  \nDans l’histoire le plus fort \nN’est pas qu’elle ne veuille rien faire \nMais n’en ait aucun remord \n\n**REFRAIN**\n\nJe suis de bon voisinage,  \nOn me salue couramment \nLoin de moi l’idée peu sage, \nD’inquiéter les braves gens \nMais les grand-mères commencent \nDe rire et parler tout bas \nLa maladie de Clémence  \nPourrait bien s’étendre là \n\n**Toutes les Clémence Prendraient des vacances **\n**Elles ne feraient plus rien **\n**Toutes les Clémence Comme en enfance **\n… Elles seraient bien \n\n**(****bis**** de « toutes les Clémence…)…. **\n… Se - re-po-se-raient - en-fin"};
+
+// État
+let activeCarnet = null;
+let activeChant = null;
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+    setupNavigation();
+    loadChantFromHash();
+});
+
+function setupNavigation() {
+    document.querySelectorAll('.carnet-title').forEach(btn => {
+        btn.addEventListener('click', () => toggleCarnet(btn.dataset.carnetId));
+    });
+    document.querySelectorAll('.chant-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const carnetId = link.dataset.carnetId;
+            const chantFile = link.dataset.chantFile;
+            loadChant(carnetId, chantFile);
+        });
+    });
+}
+
+function toggleCarnet(carnetId) {
+    const list = document.getElementById('chant-list-' + carnetId);
+    const btn = document.querySelector(`.carnet-title[data-carnet-id="${carnetId}"]`);
+
+    // Ferme les autres
+    document.querySelectorAll('.chant-list.open').forEach(l => {
+        if (l.id !== 'chant-list-' + carnetId) l.classList.remove('open');
+    });
+    document.querySelectorAll('.carnet-title.active').forEach(b => {
+        if (b.dataset.carnetId !== carnetId) b.classList.remove('active');
+    });
+
+    // Toggle
+    list.classList.toggle('open');
+    btn.classList.toggle('active');
+}
+
+async function loadChant(carnetId, chantFile) {
+    // Marque comme actif
+    document.querySelectorAll('.chant-link').forEach(l => l.classList.remove('active-chant'));
+    document.querySelector(`.chant-link[data-chant-file="${chantFile}"]`)?.classList.add('active-chant');
+
+    // Utilise les données intégrées (compatible file://)
+    try {
+        const markdown = CHANTS[chantFile] || '';
+
+        document.getElementById('welcome').style.display = 'none';
+        const display = document.getElementById('chant-display');
+        display.classList.add('visible');
+
+        // Extrait le titre (première ligne #)
+        const lines = markdown.split('\n');
+        let title = chantFile.replace('.md', '').replace(/_/g, ' ');
+        let content = markdown;
+        if (lines[0] && lines[0].startsWith('# ')) {
+            title = lines[0].replace(/^#\s+/, '');
+            content = lines.slice(1).join('\n').trim();
+        }
+
+        document.getElementById('chant-title').textContent = title;
+        document.getElementById('chant-content').innerHTML = parseMarkdown(content);
+
+        // Scroll to top
+        document.getElementById('main-content').scrollTop = 0;
+    } catch (err) {
+        document.getElementById('welcome').style.display = 'none';
+        const display = document.getElementById('chant-display');
+        display.classList.add('visible');
+        document.getElementById('chant-title').textContent = 'Erreur';
+        document.getElementById('chant-content').innerHTML = '<p style="color:red;">Impossible de charger le chant.</p>';
+    }
+}
+
+// Parseur Markdown minimal (sans dépendance externe)
+function parseMarkdown(md) {
+    let html = md;
+
+    // Échappe HTML
+    html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    // Code inline
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    // Gras + italique
+    html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+    // Titres
+    html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+    html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+    html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+
+    // Listes non ordonnées
+    html = html.replace(/^[*-] (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>)\n(?=<li>)/gs, '$1');
+    html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+
+    // Listes ordonnées
+    html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, (m) => {
+        if (!m.startsWith('<ul>')) return '<ol>' + m + '</ol>';
+        return m;
+    });
+
+    // Tableaux
+    html = html.replace(/^\|(.+)\|$/gm, (match) => {
+        const cells = match.split('|').filter(c => c.trim()).map(c => '<td>' + c.trim() + '</td>');
+        return '<tr>' + cells.join('') + '</tr>';
+    });
+
+    // Ligne de séparation tableau
+    html = html.replace(/<tr>\s*<td>[-: |]+<\/td>\s*<\/tr>/g, '');
+
+    // Regroupe les <tr> en <table>
+    html = html.replace(/((?:<tr>.*<\/tr>\n?)+)/g, (m) => {
+        if (m.includes('<td>')) return '<table>' + m + '</table>';
+        return m;
+    });
+
+    // Sauts de ligne
+    html = html.replace(/\n\n/g, '</p><p>');
+    html = html.replace(/\n/g, '<br>');
+
+    // Paragraphes
+    html = '<p>' + html + '</p>';
+    html = html.replace(/<p>\s*<\/p>/g, '');
+
+    return html;
+}
+
+// Charge un chant depuis l'URL (hash)
+function loadChantFromHash() {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const [carnetId, chantFile] = hash.split('/');
+    if (carnetId && chantFile) {
+        toggleCarnet(carnetId);
+        loadChant(carnetId, chantFile);
+    }
+}
+
+// Met à jour le hash lors du clic
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('.chant-link');
+    if (link) {
+        window.location.hash = link.dataset.carnetId + '/' + link.dataset.chantFile;
+    }
+});
+</script>
+</body>
+</html>
