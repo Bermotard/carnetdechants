@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-18T09:38:59.791816",
+  "generated": "2026-06-18T09:53:21.672031",
   "generator": "CarnetDeChant v0.1.0",
   "carnets": [
     {
@@ -50,6 +50,21 @@
         "Palestine.md",
         "Sans_nom_2.md",
         "UnJourUnJour.md"
+      ]
+    },
+    {
+      "id": "nv",
+      "name": "NV",
+      "description": "nv",
+      "author": "BGT",
+      "created": "2026-06-18",
+      "modified": "2026-06-18",
+      "chants": [
+        "A_la_Huelga.md",
+        "Antisocial.md",
+        "Cant_de_lluita_en_yaourt.md",
+        "choraleuse.md",
+        "Clémence_en_vacances.md"
       ]
     }
   ]
