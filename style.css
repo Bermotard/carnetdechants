@@ -3,11 +3,11 @@
     --bg: #f0f4ff;
     --sidebar-bg: #1a1a2e;
     --sidebar-text: #e0e0ff;
-    --accent: #ff6b6b;
+    --accent: #800020;
     --accent2: #4ecdc4;
     --accent3: #ffe66d;
     --text: #2d3436;
-    --title: #e74c3c;
+    --title: #6b2737;
     --chant-title: #6c5ce7;
     --border: #dfe6e9;
     --hover: #ffeaa7;
@@ -44,7 +44,7 @@ body {
 .sidebar-header {
     padding: 28px 20px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    background: linear-gradient(135deg, #ff6b6b, #e74c3c);
+    background: linear-gradient(135deg, #800020, #6b2737);
 }
 
 .sidebar-header h1 {
@@ -92,7 +92,7 @@ body {
 }
 
 .carnet-title.active {
-    background: rgba(255,107,107,0.25);
+    background: rgba(128,0,32,0.25);
     color: #fff;
     border-left: 4px solid var(--accent);
 }
@@ -167,7 +167,7 @@ body {
 .welcome h2 {
     font-size: 2.2em;
     font-weight: 700;
-    background: linear-gradient(135deg, #ff6b6b, #e74c3c);
+    background: linear-gradient(135deg, #800020, #6b2737);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -211,7 +211,7 @@ body {
     font-weight: 700;
 }
 
-.chant-content h1 { font-size: 1.6em; text-align: center; color: #e74c3c; }
+.chant-content h1 { font-size: 1.6em; text-align: center; color: #6b2737; }
 .chant-content h2 { font-size: 1.35em; color: #6c5ce7; }
 .chant-content h3 { font-size: 1.2em; }
 
@@ -220,12 +220,12 @@ body {
 }
 
 .chant-content em {
-    color: #e17055;
+    color: #9b2d3a;
     font-style: italic;
 }
 
 .chant-content strong {
-    color: #d63031;
+    color: #800020;
     font-weight: 700;
 }
 
@@ -272,7 +272,7 @@ body {
     border-left: 4px solid var(--accent);
     margin: 1.2em 0;
     padding: 0.8em 1.2em;
-    background: #fff5f5;
+    background: #fdf5f6;
     color: #636e72;
     font-style: italic;
     border-radius: 0 8px 8px 0;
