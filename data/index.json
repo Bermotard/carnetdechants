@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-18T09:53:21.672031",
+  "generated": "2026-06-18T14:43:43.916593",
   "generator": "CarnetDeChant v0.1.0",
   "carnets": [
     {
@@ -10,16 +10,22 @@
       "created": "2026-06-17",
       "modified": "2026-06-18",
       "chants": [
+        "Fête_de_la_musique_20-06-2026.md",
         "A_la_Huelga.md",
-        "Clémence_en_vacances.md",
+        "les_penn_sardines.md",
+        "Les_mains_dor.md",
         "En_el_pozo_Maria_Luisa.md",
-        "Frangines.md",
+        "lhymne_des_femmes.md",
+        "paroles_chanson_cançion_sin_miedo.md",
+        "paroles_La-semaine-sanglante.md",
+        "paroles_de_leau_de_leau.md",
+        "rue_des_lilas.md",
+        "Je_suis_fille_de_marin.md",
+        "ballade_nord_irlandaise.md",
+        "La_Bande_de_Gaza_A4_-.md",
+        "le_pieux.md",
         "Hegoak.md",
-        "Loiseau_liberté.md",
-        "labutterouge.md",
-        "Le_chant_des_partisans.md",
-        "Le_déserteur.md",
-        "le_pieux.md"
+        "Clémence_en_vacances.md"
       ]
     },
     {
@@ -49,22 +55,33 @@
         "Lien.md",
         "Palestine.md",
         "Sans_nom_2.md",
-        "UnJourUnJour.md"
-      ]
-    },
-    {
-      "id": "nv",
-      "name": "NV",
-      "description": "nv",
-      "author": "BGT",
-      "created": "2026-06-18",
-      "modified": "2026-06-18",
-      "chants": [
-        "A_la_Huelga.md",
-        "Antisocial.md",
-        "Cant_de_lluita_en_yaourt.md",
-        "choraleuse.md",
-        "Clémence_en_vacances.md"
+        "UnJourUnJour.md",
+        "ballade_nord_irlandaise.md",
+        "balladeNordIrlandaise.md",
+        "chanson_no_pasaran.md",
+        "chanson-Debout.md",
+        "de_nos_mains_joc.md",
+        "el_paso_del_ebro.md",
+        "hegoak.md",
+        "Je_suis_fille_de_marin.md",
+        "Je_suis_fille_de.md",
+        "lhymne_des_femmes.md",
+        "L_erba_d_agram_STRUCTURE.md",
+        "la_ballade_nord_irlandaise.md",
+        "La_Bande_de_Gaza_A4_-.md",
+        "laballadedesbombesatomiques.md",
+        "LERBA_DAGRAM_partition.md",
+        "les_penn_sardines.md",
+        "paroles_A-la-huelga.md",
+        "paroles_chanson_cançion_sin_miedo.md",
+        "paroles_de_leau_de_leau.md",
+        "paroles_Je-suis-fils.md",
+        "paroles_La-semaine-sanglante.md",
+        "paroles_Le-pieu.md",
+        "paroles_Les-mains-d-or.md",
+        "rue_des_lilas.md",
+        "semaine_sanglante.md",
+        "The_sound_of_silence.md"
       ]
     }
   ]
