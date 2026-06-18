@@ -1,1 +1,0 @@
-../chants/gloire_a_dieu.md
