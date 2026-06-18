@@ -1,20 +1,7 @@
 {
-  "generated": "2026-06-18T08:23:34.665666",
+  "generated": "2026-06-18T09:28:32.995766",
   "generator": "CarnetDeChant v0.1.0",
   "carnets": [
-    {
-      "id": "nouveau1",
-      "name": "nouveau1",
-      "description": "Pour test",
-      "author": "B Gosset",
-      "created": "2026-06-17",
-      "modified": "2026-06-17",
-      "chants": [
-        "A_la_Huelga.md",
-        "Antisocial.md",
-        "Cant_de_lluita_en_yaourt.md"
-      ]
-    },
     {
       "id": "fetes_de_la_musique_2026",
       "name": "Fetes de la musique 2026",
@@ -36,15 +23,33 @@
       ]
     },
     {
-      "id": "car2",
-      "name": "car2",
-      "description": "car2",
+      "id": "tout",
+      "name": "tout",
+      "description": "tout",
       "author": "BGT",
-      "created": "2026-06-17",
-      "modified": "2026-06-17",
+      "created": "2026-06-18",
+      "modified": "2026-06-18",
       "chants": [
+        "A_la_Huelga.md",
+        "Antisocial.md",
         "Cant_de_lluita_en_yaourt.md",
-        "A_la_Huelga.md"
+        "choraleuse.md",
+        "Clémence_en_vacances.md",
+        "Danser_encore1.md",
+        "Danser_encore.md",
+        "En_el_pozo_Maria_Luisa.md",
+        "Frangines.md",
+        "Hegoak.md",
+        "Loiseau_liberté.md",
+        "labutterouge.md",
+        "Le_chant_des_partisans.md",
+        "Le_déserteur.md",
+        "le_pieux.md",
+        "Les_mains_dor.md",
+        "Lien.md",
+        "Palestine.md",
+        "Sans_nom_2.md",
+        "UnJourUnJour.md"
       ]
     }
   ]

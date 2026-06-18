@@ -1,1 +1,0 @@
-../chants/Cant_de_lluita_en_yaourt.md
