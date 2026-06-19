@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-19T13:37:34.620218",
+  "generated": "2026-06-19T21:32:44.477185",
   "generator": "CarnetDeChant v0.1.0",
   "carnets": [
     {
@@ -11,8 +11,15 @@
       "modified": "2026-06-19",
       "chants": [
         "Fête_de_la_musique_20-06-2026.md",
-        "les_penn_sardines.md",
-        "Les_mains_dor.md",
+        "A_la_Huelga.md",
+        {
+          "file": "les_penn_sardines.md",
+          "partition": "les_penn_sardines--partition.pdf"
+        },
+        {
+          "file": "Les_mains_dor.md",
+          "partition": "Les_mains_dor--partition.pdf"
+        },
         "En_el_pozo_Maria_Luisa.md",
         "lhymne_des_femmes.md",
         "paroles_chanson_cançion_sin_miedo.md",
@@ -32,7 +39,7 @@
           "partition": "Debout_-_paroles--partition.pdf"
         },
         "Clémence_en_vacances.md",
-        "A_la_Huelga.md"
+        "bellaciao-paroles.md"
       ]
     },
     {
@@ -41,7 +48,7 @@
       "description": "tout",
       "author": "BGT",
       "created": "2026-06-18",
-      "modified": "2026-06-18",
+      "modified": "2026-06-19",
       "chants": [
         "A_la_Huelga.md",
         "Antisocial.md",
@@ -57,7 +64,10 @@
         "labutterouge.md",
         "Le_chant_des_partisans.md",
         "Le_déserteur.md",
-        "le_pieux.md",
+        {
+          "file": "le_pieux.md",
+          "partition": "le_pieux--partition.pdf"
+        },
         "Les_mains_dor.md",
         "Lien.md",
         "Palestine.md",
@@ -78,7 +88,10 @@
         "La_Bande_de_Gaza_A4_-.md",
         "laballadedesbombesatomiques.md",
         "LERBA_DAGRAM_partition.md",
-        "les_penn_sardines.md",
+        {
+          "file": "les_penn_sardines.md",
+          "partition": "les_penn_sardines--partition.pdf"
+        },
         "paroles_A-la-huelga.md",
         "paroles_chanson_cançion_sin_miedo.md",
         "paroles_de_leau_de_leau.md",
@@ -89,7 +102,8 @@
         "rue_des_lilas.md",
         "semaine_sanglante.md",
         "The_sound_of_silence.md",
-        "Debout_-_paroles.md"
+        "Debout_-_paroles.md",
+        "bellaciao-paroles.md"
       ]
     }
   ]
