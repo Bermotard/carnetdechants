@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-18T17:08:07.226401",
+  "generated": "2026-06-19T13:37:34.620218",
   "generator": "CarnetDeChant v0.1.0",
   "carnets": [
     {
@@ -8,10 +8,9 @@
       "description": "Fêtes de la musique 2026",
       "author": "BGT",
       "created": "2026-06-17",
-      "modified": "2026-06-18",
+      "modified": "2026-06-19",
       "chants": [
         "Fête_de_la_musique_20-06-2026.md",
-        "A_la_Huelga.md",
         "les_penn_sardines.md",
         "Les_mains_dor.md",
         "En_el_pozo_Maria_Luisa.md",
@@ -19,14 +18,21 @@
         "paroles_chanson_cançion_sin_miedo.md",
         "paroles_La-semaine-sanglante.md",
         "paroles_de_leau_de_leau.md",
-        "rue_des_lilas.md",
+        {
+          "file": "rue_des_lilas.md",
+          "partition": "rue_des_lilas--partition.pdf"
+        },
         "Je_suis_fille_de_marin.md",
         "ballade_nord_irlandaise.md",
         "La_Bande_de_Gaza_A4_-.md",
         "le_pieux.md",
         "Hegoak.md",
+        {
+          "file": "Debout_-_paroles.md",
+          "partition": "Debout_-_paroles--partition.pdf"
+        },
         "Clémence_en_vacances.md",
-        "Debout_-_paroles.md"
+        "A_la_Huelga.md"
       ]
     },
     {
