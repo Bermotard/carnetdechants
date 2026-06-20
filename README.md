@@ -1,7 +1,6 @@
 🎶 CarnetDeChants
 
-Bienvenue sur CarnetDeChants, une application web ultra-légère, moderne et entièrement autonome permettant de consulter et de rechercher des chants à travers plusieurs carnets thématiques.
-
+Bienvenue sur CarnetDeChants, la page web de la choraleuses
 👉 Consulter le carnet de chants en ligne
 
 🚀 Le Projet
