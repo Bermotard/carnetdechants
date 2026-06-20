@@ -229,6 +229,67 @@ body {
     background: var(--partition-btn-hover);
 }
 
+/* === LIENS === */
+.liens-display {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.liens-display h2 {
+    font-size: 1.8em;
+    color: var(--chant-title);
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 3px solid var(--accent2);
+    font-weight: 700;
+    text-align: center;
+}
+
+.lien-cat {
+    margin-bottom: 28px;
+}
+
+.lien-cat h3 {
+    font-size: 1.2em;
+    color: var(--accent);
+    margin-bottom: 12px;
+    padding-left: 8px;
+    border-left: 3px solid var(--accent);
+}
+
+.lien-card {
+    display: block;
+    background: var(--card-bg);
+    padding: 14px 18px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.lien-card:hover {
+    transform: translateX(4px);
+    border-left-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.lien-titre {
+    display: block;
+    font-weight: 600;
+    font-size: 1.05em;
+    margin-bottom: 2px;
+}
+
+.lien-desc {
+    display: block;
+    font-size: 0.9em;
+    color: #636e72;
+    margin-top: 2px;
+}
+
 .chant-content {
     font-size: 1.1em;
     line-height: 2.1;

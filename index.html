@@ -300,10 +300,14 @@
                        data-chant-file="bellaciao-paroles.md">♪ bellaciao-paroles</a></li>
             </ul>
         </div>
+        <button class="carnet-title liens-btn" data-carnet-id="_liens_">
+            🔗 Liens
+            <span class="count">4</span>
+        </button>
     </nav>
 
     <div class="sidebar-footer">
-        Généré le 19/06/2026 à 21:32<br>
+        Généré le 20/06/2026 à 10:45<br>
         CarnetDeChant
     </div>
 </aside>
@@ -318,6 +322,10 @@
         <h2 id="chant-title"></h2>
         <div id="chant-part-container"></div>
         <div class="chant-content" id="chant-content"></div>
+    </div>
+    <div class="liens-display" id="liens-display" style="display:none;">
+        <h2>🔗 Liens</h2>
+        <div id="liens-content"></div>
     </div>
 </main>
 
@@ -335,7 +343,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupNavigation() {
     document.querySelectorAll('.carnet-title').forEach(btn => {
-        btn.addEventListener('click', () => toggleCarnet(btn.dataset.carnetId));
+        btn.addEventListener('click', () => {
+            if (btn.dataset.carnetId === '_liens_') {
+                showLiens();
+            } else {
+                toggleCarnet(btn.dataset.carnetId);
+            }
+        });
     });
     document.querySelectorAll('.chant-link').forEach(link => {
         link.addEventListener('click', (e) => {
@@ -466,6 +480,55 @@ function parseMarkdown(md) {
     html = '<p>' + html + '</p>';
     html = html.replace(/<p>\s*<\/p>/g, '');
 
+    return html;
+}
+
+// Affiche la page des liens
+function showLiens() {
+    document.getElementById('welcome').style.display = 'none';
+    document.querySelector('.chant-display').classList.remove('visible');
+    const liensDisplay = document.getElementById('liens-display');
+    liensDisplay.style.display = 'block';
+    document.getElementById('liens-content').innerHTML = buildLiensHTML();
+    document.getElementById('main-content').scrollTop = 0;
+}
+
+function buildLiensHTML() {
+    if (!LIENS || LIENS.length === 0) {
+        return '<p class="empty-state">📭 Aucun lien pour le moment.</p>';
+    }
+    // Groupe par catégorie
+    const cats = {};
+    const noCat = [];
+    LIENS.forEach(l => {
+        if (l.categorie) {
+            if (!cats[l.categorie]) cats[l.categorie] = [];
+            cats[l.categorie].push(l);
+        } else {
+            noCat.push(l);
+        }
+    });
+    let html = '';
+    for (const [cat, liens] of Object.entries(cats)) {
+        html += '<div class="lien-cat"><h3>📂 ' + cat + '</h3>';
+        liens.forEach(l => {
+            html += '<a class="lien-card" href="' + l.url + '" target="_blank">' +
+                    '<span class="lien-titre">🎵 ' + l.titre + '</span>' +
+                    (l.description ? '<span class="lien-desc">' + l.description + '</span>' : '') +
+                    '</a>';
+        });
+        html += '</div>';
+    }
+    if (noCat.length > 0) {
+        html += '<div class="lien-cat"><h3>📂 Autres</h3>';
+        noCat.forEach(l => {
+            html += '<a class="lien-card" href="' + l.url + '" target="_blank">' +
+                    '<span class="lien-titre">🎵 ' + l.titre + '</span>' +
+                    (l.description ? '<span class="lien-desc">' + l.description + '</span>' : '') +
+                    '</a>';
+        });
+        html += '</div>';
+    }
     return html;
 }
 
