@@ -302,12 +302,12 @@
         </div>
         <button class="carnet-title liens-btn" data-carnet-id="_liens_">
             🔗 Liens
-            <span class="count">4</span>
+            <span class="count">6</span>
         </button>
     </nav>
 
     <div class="sidebar-footer">
-        Généré le 20/06/2026 à 10:45<br>
+        Généré le 22/06/2026 à 15:26<br>
         CarnetDeChant
     </div>
 </aside>
@@ -388,6 +388,7 @@ async function loadChant(carnetId, chantFile) {
         const markdown = CHANTS[chantFile] || '';
 
         document.getElementById('welcome').style.display = 'none';
+        document.getElementById('liens-display').style.display = 'none';
         const display = document.getElementById('chant-display');
         display.classList.add('visible');
 
@@ -417,6 +418,7 @@ async function loadChant(carnetId, chantFile) {
         document.getElementById('main-content').scrollTop = 0;
     } catch (err) {
         document.getElementById('welcome').style.display = 'none';
+        document.getElementById('liens-display').style.display = 'none';
         const display = document.getElementById('chant-display');
         display.classList.add('visible');
         document.getElementById('chant-title').textContent = 'Erreur';
