@@ -300,14 +300,22 @@
                        data-chant-file="bellaciao-paroles.md">♪ bellaciao-paroles</a></li>
             </ul>
         </div>
-        <button class="carnet-title liens-btn" data-carnet-id="_liens_">
-            🔗 Liens
-            <span class="count">6</span>
-        </button>
+        <div class="carnet-group">
+            <button class="carnet-title liens-btn" data-carnet-id="_liens_">
+                🔗 Liens
+                <span class="count">7</span>
+            </button>
+            <ul class="chant-list" id="chant-list-_liens_">
+                <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="_all_">📂 Tous (7)</a></li>
+                <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="cat_chorales">📂 Chorales (3)</a></li>
+                <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="cat_audio-video">📂 Audio-video (3)</a></li>
+                <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="cat_carnets">📂 Carnets (1)</a></li>
+            </ul>
+        </div>
     </nav>
 
     <div class="sidebar-footer">
-        Généré le 22/06/2026 à 15:26<br>
+        Généré le 22/06/2026 à 16:55<br>
         CarnetDeChant
     </div>
 </aside>
@@ -345,6 +353,7 @@ function setupNavigation() {
     document.querySelectorAll('.carnet-title').forEach(btn => {
         btn.addEventListener('click', () => {
             if (btn.dataset.carnetId === '_liens_') {
+                toggleCarnet('_liens_');
                 showLiens();
             } else {
                 toggleCarnet(btn.dataset.carnetId);
@@ -356,7 +365,18 @@ function setupNavigation() {
             e.preventDefault();
             const carnetId = link.dataset.carnetId;
             const chantFile = link.dataset.chantFile;
-            loadChant(carnetId, chantFile);
+            // Lien catégorie → affiche les liens filtrés
+            if (carnetId === '_liens_') {
+                if (chantFile === '_all_') {
+                    showLiens();
+                } else {
+                    const cat = chantFile.replace('cat_', '');
+                    showLiens(cat);
+                }
+                toggleCarnet('_liens_');
+            } else {
+                loadChant(carnetId, chantFile);
+            }
         });
     });
 }
@@ -485,24 +505,52 @@ function parseMarkdown(md) {
     return html;
 }
 
-// Affiche la page des liens
-function showLiens() {
+// Affiche la page des liens (tous ou filtrés par catégorie)
+function showLiens(categorie) {
     document.getElementById('welcome').style.display = 'none';
     document.querySelector('.chant-display').classList.remove('visible');
     const liensDisplay = document.getElementById('liens-display');
     liensDisplay.style.display = 'block';
-    document.getElementById('liens-content').innerHTML = buildLiensHTML();
+    // Met à jour le titre
+    let titre = '🔗 Liens';
+    if (categorie && categorie !== '_all_') {
+        const catName = LIENS.filter(l => l.categorie && l.categorie.toLowerCase().replace(/ /g, '_') === categorie)[0];
+        titre = '🔗 Liens — ' + (catName ? catName.categorie : categorie);
+    }
+    document.querySelector('#liens-display h2').textContent = titre;
+    document.getElementById('liens-content').innerHTML = buildLiensHTML(categorie);
     document.getElementById('main-content').scrollTop = 0;
 }
 
-function buildLiensHTML() {
+function buildLiensHTML(categorie) {
     if (!LIENS || LIENS.length === 0) {
-        return '<p class="empty-state">📭 Aucun lien pour le moment.</p>';
+        return '<p class=\"empty-state\">📭 Aucun lien pour le moment.</p>';
     }
-    // Groupe par catégorie
+    // Filtrer par catégorie si demandé
+    let liens = LIENS;
+    if (categorie && categorie !== '_all_') {
+        liens = LIENS.filter(l => l.categorie && l.categorie.toLowerCase().replace(/ /g, '_') === categorie);
+    }
+    if (liens.length === 0) {
+        return '<p class=\"empty-state\">📭 Aucun lien dans cette catégorie.</p>';
+    }
+    // Groupe par catégorie (si pas de filtre actif)
+    if (categorie && categorie !== '_all_') {
+        // Affiche tous les liens de cette catégorie (pas de sous-groupes)
+        let html = '<div class=\"lien-cat\">';
+        liens.forEach(l => {
+            html += '<a class=\"lien-card\" href=\"' + l.url + '\" target=\"_blank\">' +
+                    '<span class=\"lien-titre\">🎵 ' + l.titre + '</span>' +
+                    (l.description ? '<span class=\"lien-desc\">' + l.description + '</span>' : '') +
+                    '</a>';
+        });
+        html += '</div>';
+        return html;
+    }
+    // Mode « Tous » : affichage groupé par catégorie
     const cats = {};
     const noCat = [];
-    LIENS.forEach(l => {
+    liens.forEach(l => {
         if (l.categorie) {
             if (!cats[l.categorie]) cats[l.categorie] = [];
             cats[l.categorie].push(l);
@@ -511,22 +559,22 @@ function buildLiensHTML() {
         }
     });
     let html = '';
-    for (const [cat, liens] of Object.entries(cats)) {
-        html += '<div class="lien-cat"><h3>📂 ' + cat + '</h3>';
-        liens.forEach(l => {
-            html += '<a class="lien-card" href="' + l.url + '" target="_blank">' +
-                    '<span class="lien-titre">🎵 ' + l.titre + '</span>' +
-                    (l.description ? '<span class="lien-desc">' + l.description + '</span>' : '') +
+    for (const [cat, catLiens] of Object.entries(cats)) {
+        html += '<div class=\"lien-cat\"><h3>📂 ' + cat + '</h3>';
+        catLiens.forEach(l => {
+            html += '<a class=\"lien-card\" href=\"' + l.url + '\" target=\"_blank\">' +
+                    '<span class=\"lien-titre\">🎵 ' + l.titre + '</span>' +
+                    (l.description ? '<span class=\"lien-desc\">' + l.description + '</span>' : '') +
                     '</a>';
         });
         html += '</div>';
     }
     if (noCat.length > 0) {
-        html += '<div class="lien-cat"><h3>📂 Autres</h3>';
+        html += '<div class=\"lien-cat\"><h3>📂 Autres</h3>';
         noCat.forEach(l => {
-            html += '<a class="lien-card" href="' + l.url + '" target="_blank">' +
-                    '<span class="lien-titre">🎵 ' + l.titre + '</span>' +
-                    (l.description ? '<span class="lien-desc">' + l.description + '</span>' : '') +
+            html += '<a class=\"lien-card\" href=\"' + l.url + '\" target=\"_blank\">' +
+                    '<span class=\"lien-titre\">🎵 ' + l.titre + '</span>' +
+                    (l.description ? '<span class=\"lien-desc\">' + l.description + '</span>' : '') +
                     '</a>';
         });
         html += '</div>';
