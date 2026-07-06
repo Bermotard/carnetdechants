@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-28T17:03:12.511070",
+  "generated": "2026-07-06T18:22:13.573419",
   "generator": "CarnetDeChant v0.1.0",
   "carnets": [
     {
@@ -104,6 +104,27 @@
         "The_sound_of_silence.md",
         "Debout_-_paroles.md",
         "bellaciao-paroles.md"
+      ]
+    },
+    {
+      "id": "fetes_amitie_et_solidarite",
+      "name": "fetes amitie et solidarite",
+      "description": "Cette journée conviviale, ouverte à tous, a pour vocation de favoriser les rencontres, les échanges et les liens entre habitants, associations et visiteurs dans une ambiance chaleureuse et festive.",
+      "author": "BGT",
+      "created": "2026-07-06",
+      "modified": "2026-07-06",
+      "chants": [
+        {
+          "file": "Debout_-_paroles.md",
+          "partition": "Debout_-_paroles--partition.pdf"
+        },
+        "UnJourUnJour.md",
+        "el_paso_del_ebro.md",
+        "le_pieux.md",
+        "hegoak.md",
+        "La_Bande_de_Gaza_A4_-.md",
+        "En_el_pozo_Maria_Luisa.md",
+        "paroles_de_leau_de_leau.md"
       ]
     }
   ]
