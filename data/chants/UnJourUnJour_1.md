@@ -1,18 +1,4 @@
 # Paroles de « Un jour, un jour »
-
-
-
-
-
-
-## Un jour, un jour
-
-
-
-
-
-
-
 Tout ce que l'homme fut de grand et de sublime
 Sa protestation ses chants et ses héros
 Au-dessus de ce corps et contre ses bourreaux
@@ -52,4 +38,3 @@ Aux cadavres jetés ce manteau de paroles
 Le bâillon pour la bouche et pour la main le clou
 
 Refrain
-
