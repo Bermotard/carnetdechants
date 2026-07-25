@@ -103,7 +103,7 @@
         <div class="carnet-group">
             <button class="carnet-title" data-carnet-id="tout">
                 📖 tout
-                <span class="count">48</span>
+                <span class="count">47</span>
             </button>
             <ul class="chant-list" id="chant-list-tout">
                 <li><a href="#tout/A_la_Huelga.md"
@@ -182,10 +182,6 @@
                        class="chant-link"
                        data-carnet-id="tout"
                        data-chant-file="Sans_nom_2.md">♪ Sans nom 2</a></li>
-                <li><a href="#tout/UnJourUnJour.md"
-                       class="chant-link"
-                       data-carnet-id="tout"
-                       data-chant-file="UnJourUnJour.md">♪ UnJourUnJour</a></li>
                 <li><a href="#tout/ballade_nord_irlandaise.md"
                        class="chant-link"
                        data-carnet-id="tout"
@@ -310,10 +306,10 @@
                        class="chant-link"
                        data-carnet-id="fetes_amitie_et_solidarite"
                        data-chant-file="Debout_-_paroles.md">♪ Debout - paroles <span class="chant-part-badge">📄</span></a></li>
-                <li><a href="#fetes_amitie_et_solidarite/UnJourUnJour.md"
+                <li><a href="#fetes_amitie_et_solidarite/UnJourUnJour_1.md"
                        class="chant-link"
                        data-carnet-id="fetes_amitie_et_solidarite"
-                       data-chant-file="UnJourUnJour.md">♪ UnJourUnJour</a></li>
+                       data-chant-file="UnJourUnJour_1.md">♪ UnJourUnJour 1</a></li>
                 <li><a href="#fetes_amitie_et_solidarite/el_paso_del_ebro.md"
                        class="chant-link"
                        data-carnet-id="fetes_amitie_et_solidarite"
@@ -343,11 +339,11 @@
         <div class="carnet-group">
             <button class="carnet-title liens-btn" data-carnet-id="_liens_">
                 🔗 Liens
-                <span class="count">12</span>
+                <span class="count">13</span>
             </button>
             <ul class="chant-list" id="chant-list-_liens_">
-                <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="_all_">📂 Tous (12)</a></li>
-                <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="cat_audio-video">📂 Audio-video (8)</a></li>
+                <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="_all_">📂 Tous (13)</a></li>
+                <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="cat_audio-video">📂 Audio-video (9)</a></li>
                 <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="cat_chorales">📂 Chorales (3)</a></li>
                 <li><a href="#" class="chant-link lien-cat-link" data-carnet-id="_liens_" data-chant-file="cat_carnets">📂 Carnets (1)</a></li>
             </ul>
@@ -355,7 +351,7 @@
     </nav>
 
     <div class="sidebar-footer">
-        Généré le 07/07/2026 à 14:28<br>
+        Généré le 25/07/2026 à 09:36<br>
         CarnetDeChant
     </div>
 </aside>
@@ -453,12 +449,12 @@ async function loadChant(carnetId, chantFile) {
         display.classList.add('visible');
 
         // Extrait le titre (première ligne #)
-        const lines = markdown.split('\\n');
+        const lines = markdown.split('\n');
         let title = chantFile.replace('.md', '').replace(/_/g, ' ');
         let content = markdown;
         if (lines[0] && lines[0].startsWith('# ')) {
-            title = lines[0].replace(/^#\\s+/, '');
-            content = lines.slice(1).join('\\n').trim();
+            title = lines[0].replace(/^#\s+/, '');
+            content = lines.slice(1).join('\n').trim();
         }
 
         document.getElementById('chant-title').textContent = title;
@@ -506,6 +502,7 @@ function parseMarkdown(md) {
     html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
     html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
     html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+    html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
 
     // Listes non ordonnées
     html = html.replace(/^[*-] (.+)$/gm, '<li>$1</li>');
@@ -534,9 +531,8 @@ function parseMarkdown(md) {
         return m;
     });
 
-    // Sauts de ligne
-    html = html.replace(/\n\n/g, '</p><p>');
-    html = html.replace(/\n/g, '<br>');
+    // Sauts de ligne — chaque saut de ligne (simple ou multiple) devient un nouveau paragraphe
+    html = html.replace(/\n+/g, '</p><p>');
 
     // Paragraphes
     html = '<p>' + html + '</p>';

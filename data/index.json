@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-07T14:28:17.906681",
+  "generated": "2026-07-25T09:36:40.647819",
   "generator": "CarnetDeChant v0.1.0",
   "carnets": [
     {
@@ -48,7 +48,7 @@
       "description": "tout",
       "author": "BGT",
       "created": "2026-06-18",
-      "modified": "2026-06-19",
+      "modified": "2026-07-09",
       "chants": [
         "A_la_Huelga.md",
         "Antisocial.md",
@@ -72,7 +72,6 @@
         "Lien.md",
         "Palestine.md",
         "Sans_nom_2.md",
-        "UnJourUnJour.md",
         "ballade_nord_irlandaise.md",
         "balladeNordIrlandaise.md",
         "chanson_no_pasaran.md",
@@ -112,13 +111,13 @@
       "description": "Cette journée conviviale, ouverte à tous, a pour vocation de favoriser les rencontres, les échanges et les liens entre habitants, associations et visiteurs dans une ambiance chaleureuse et festive.",
       "author": "BGT",
       "created": "2026-07-06",
-      "modified": "2026-07-07",
+      "modified": "2026-07-25",
       "chants": [
         {
           "file": "Debout_-_paroles.md",
           "partition": "Debout_-_paroles--partition.pdf"
         },
-        "UnJourUnJour.md",
+        "UnJourUnJour_1.md",
         "el_paso_del_ebro.md",
         "le_pieux.md",
         "Hegoak.md",
