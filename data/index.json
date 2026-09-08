@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-25T09:51:27.293784",
+  "generated": "2026-09-08T15:49:55.251115",
   "generator": "CarnetDeChant v0.1.0",
   "carnets": [
     {
@@ -48,14 +48,12 @@
       "description": "tout",
       "author": "BGT",
       "created": "2026-06-18",
-      "modified": "2026-07-09",
+      "modified": "2026-09-08",
       "chants": [
         "A_la_Huelga.md",
         "Antisocial.md",
         "Cant_de_lluita_en_yaourt.md",
-        "choraleuse.md",
         "Clémence_en_vacances.md",
-        "Danser_encore1.md",
         "Danser_encore.md",
         "En_el_pozo_Maria_Luisa.md",
         "Frangines.md",
@@ -64,29 +62,21 @@
         "labutterouge.md",
         "Le_chant_des_partisans.md",
         "Le_déserteur.md",
-        {
-          "file": "le_pieux.md",
-          "partition": "le_pieux--partition.pdf"
-        },
+        "le_pieux.md",
         "Les_mains_dor.md",
         "Lien.md",
         "Palestine.md",
-        "Sans_nom_2.md",
         "ballade_nord_irlandaise.md",
-        "balladeNordIrlandaise.md",
         "chanson_no_pasaran.md",
         "chanson-Debout.md",
         "de_nos_mains_joc.md",
         "el_paso_del_ebro.md",
-        "hegoak.md",
         "Je_suis_fille_de_marin.md",
         "Je_suis_fille_de.md",
         "lhymne_des_femmes.md",
-        "L_erba_d_agram_STRUCTURE.md",
         "la_ballade_nord_irlandaise.md",
         "La_Bande_de_Gaza_A4_-.md",
         "laballadedesbombesatomiques.md",
-        "LERBA_DAGRAM_partition.md",
         {
           "file": "les_penn_sardines.md",
           "partition": "les_penn_sardines--partition.pdf"
